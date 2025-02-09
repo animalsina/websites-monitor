@@ -33,12 +33,12 @@ jobs:
         id: chrome_version
         run: |
           CHROME_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" | jq -r '.channels.Stable.version')
-          echo "CHROME_VERSION=$CHROME_VERSION" >> $GITHUB_OUTPUT
+          echo "CHROME_VERSION=$CHROME_VERSION" >> $GITHUB_ENV
           
       - name: Setup Chrome and Chromedriver
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: ${{ steps.chrome_version.outputs.CHROME_VERSION }}
+          chrome-version: ${{ env.CHROME_VERSION }}
           install-chromedriver: true
           
       - name: Verify Chrome and Chromedriver Installation
